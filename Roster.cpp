@@ -441,11 +441,11 @@ int main() {
 
 	classRoster[0]->AddStudent("A1", "John", "Smith", "John1989@gm ail.com", 20, 30, 35, 40, SECURITY);
 	classRoster[0]->AddStudent("A2", "Suzan", "Erickson", "Erickson_1990@gmailcom", 19, 50, 30, 40, NETWORK);
+	classRoster[0]->AddStudent("A3", "Jack", "Napoli", "The_lawyer99@yahoo.com", 19, 20, 40, 33, SOFTWARE);
 	classRoster[0]->PrintInvalidEmails();
 	classRoster[0]->PrintDaysInCourse("A2");
 	classRoster[0]->PrintAll();
-
-
+	classRoster[0]->RemoveStudent("A2");
 	return 0;
 }
 
