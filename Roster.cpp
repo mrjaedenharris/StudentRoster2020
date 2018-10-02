@@ -391,6 +391,22 @@ void Roster::PrintDaysInCourse(string studentID)
 	
 }
 
+void Roster::PrintAllDaysInCourses()
+{
+	int avgDaysInCourses;
+
+	for (int z = 0; z < arrayCounter; z++)
+	{
+		if (classRosterArray[z])
+		{
+			avgDaysInCourses = (((classRosterArray[z]->GetNumCourseDays().numCourseDays[0]) + (classRosterArray[z]->GetNumCourseDays().numCourseDays[1]) + (classRosterArray[z]->GetNumCourseDays().numCourseDays[2])) / 3);
+			std::cout << " Student: '" << classRosterArray[z]->GetStudentID() << "', took an average of: " << avgDaysInCourses << " days to complete three courses." << endl;
+
+		}
+	}
+
+}
+
 //Working Correctly
 void Roster::PrintInvalidEmails()
 {
@@ -472,25 +488,30 @@ int main() {
 	Roster* classRoster[50];
 
 	/*
+	
 	classRoster[0] = new Roster(5);
 
 	classRoster[0]->AddStudent("A6", "George", "Groesbeck", "George.Groesbeck@emc.com", 27, 35, 40, 65, SECURITY);
 	
 	//Tests on Print Days in Course
-	classRoster[0]->PrintDaysInCourse("B1");
-	classRoster[0]->PrintDaysInCourse("A1");
-	classRoster[0]->PrintDaysInCourse("A2");
-	classRoster[0]->PrintDaysInCourse("A3");
-	classRoster[0]->PrintDaysInCourse("A4");
-	classRoster[0]->PrintDaysInCourse("A5");
-	classRoster[0]->PrintDaysInCourse("A6");
-	classRoster[0]->PrintDaysInCourse("A7");
+	//classRoster[0]->PrintDaysInCourse("B1");
+	//classRoster[0]->PrintDaysInCourse("A1");
+	//classRoster[0]->PrintDaysInCourse("A2");
+	//classRoster[0]->PrintDaysInCourse("A3");
+	//classRoster[0]->PrintDaysInCourse("A4");
+	//classRoster[0]->PrintDaysInCourse("A5");
+	//classRoster[0]->PrintDaysInCourse("A6");
+	//classRoster[0]->PrintDaysInCourse("A7");
 
 	classRoster[0]->PrintInvalidEmails();
 
-	//classRoster[0]->RemoveStudent("A4");
+	classRoster[0]->RemoveStudent("A4");
 	classRoster[0]->RemoveStudent("A6");
 	//classRoster[0]->RemoveStudent("A7");
+
+	classRoster[0]->PrintAll();
+
+	classRoster[0]->AddStudent("A4", "Erin", "Black", "erin.black@comcast.net", 22, 50, 58, 40, SECURITY);
 
 	classRoster[0]->PrintAll();
 
@@ -503,7 +524,7 @@ int main() {
 
 	
 	//-------SECONDARY PORTION OF ASSIGNMENT-------
-
+	
 	classRoster[0] = new Roster();
 
 	classRoster[0]->AddStudent("A1", "John", "Smith", "John1989@gm ail.com", 20, 30, 35, 40, SECURITY);
@@ -526,16 +547,24 @@ int main() {
 	classRoster[0]->PrintDaysInCourse("A2");
 	classRoster[0]->PrintDaysInCourse("A3");
 
+	std::cout << "---------------------------" << endl;
+	classRoster[0]->PrintAllDaysInCourses();
+	std::cout << endl << "---------------------------" << endl;
 	classRoster[0]->PrintInvalidEmails();
 
 	classRoster[0]->PrintAll();
 
 	classRoster[0]->AddStudent("A3", "Jack", "Napoli", "The_lawyer99@yahoo.com", 19, 20, 40, 33, SOFTWARE);
 
+	std::cout << "---------------------------" << endl;
+	classRoster[0]->PrintAllDaysInCourses();
+	std::cout << endl << "---------------------------" << endl;
+
 	std::cout << endl;
 	classRoster[0]->PrintAll();
 
-	classRoster[0]->PrintByDegreeProgram(SECURITY);
+	//classRoster[0]->PrintByDegreeProgram(SECURITY);
+	
 	
 
 	return 0;

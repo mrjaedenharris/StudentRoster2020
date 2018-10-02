@@ -25,12 +25,16 @@ public:
 	//Print one student's average days in courses
 	void PrintDaysInCourse(std::string studentID);
 
+	//Print all student's average days in courses
+	void PrintAllDaysInCourses();
+
 	//String search to find invalid emails
 	void PrintInvalidEmails();
 
 	//Print all students by a specific degreeProgram
 	void PrintByDegreeProgram(Degree degreeProgram);
 
+	//Return current size of array
 	int GetArrayCounter();
 
 
