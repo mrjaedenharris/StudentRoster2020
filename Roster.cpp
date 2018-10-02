@@ -239,33 +239,72 @@ Roster::~Roster()
 
 void Roster::AddStudent(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, int daysInCourse1, int daysInCourse2, int daysInCourse3, Degree degreeType)
 {
-	if (degreeType = NETWORK)
+	bool newStudent = true;
+	
+	for (int z = 0; z < arrayCounter; z++)
 	{
-		classRosterArray[arrayCounter] = new NetworkStudent;
+		if (!classRosterArray[z])
+		{
+
+			if (degreeType = NETWORK)
+			{
+				classRosterArray[z] = new NetworkStudent;
+			}
+
+			else if (degreeType = SECURITY)
+			{
+				classRosterArray[z] = new SecurityStudent;
+			}
+
+			else if (degreeType = SOFTWARE)
+			{
+				classRosterArray[z] = new SoftwareStudent;
+			}
+
+			classRosterArray[z]->SetStudentID(studentID);
+			classRosterArray[z]->SetFirstName(firstName);
+			classRosterArray[z]->SetLastName(lastName);
+			classRosterArray[z]->SetEmailAddress(emailAddress);
+			classRosterArray[z]->SetAge(age);
+			classRosterArray[z]->SetNumCourseDays(daysInCourse1, daysInCourse2, daysInCourse3);
+			classRosterArray[z]->SetDegreeType();
+
+			newStudent = false;
+
+		}
 	}
 
-	else if (degreeType = SECURITY)
+	if (newStudent)
 	{
-		classRosterArray[arrayCounter] = new SecurityStudent;
+
+
+		if (degreeType = NETWORK)
+		{
+			classRosterArray[arrayCounter] = new NetworkStudent;
+		}
+
+		else if (degreeType = SECURITY)
+		{
+			classRosterArray[arrayCounter] = new SecurityStudent;
+		}
+
+		else if (degreeType = SOFTWARE)
+		{
+			classRosterArray[arrayCounter] = new SoftwareStudent;
+		}
+
+		classRosterArray[arrayCounter]->SetStudentID(studentID);
+		classRosterArray[arrayCounter]->SetFirstName(firstName);
+		classRosterArray[arrayCounter]->SetLastName(lastName);
+		classRosterArray[arrayCounter]->SetEmailAddress(emailAddress);
+		classRosterArray[arrayCounter]->SetAge(age);
+		classRosterArray[arrayCounter]->SetNumCourseDays(daysInCourse1, daysInCourse2, daysInCourse3);
+		classRosterArray[arrayCounter]->SetDegreeType();
+
+		arrayCounter++;
 	}
 
-	else if (degreeType = SOFTWARE)
-	{
-		classRosterArray[arrayCounter] = new SoftwareStudent;
-	}
-
-	classRosterArray[arrayCounter]->SetStudentID(studentID);
-	classRosterArray[arrayCounter]->SetFirstName(firstName);
-	classRosterArray[arrayCounter]->SetLastName(lastName);
-	classRosterArray[arrayCounter]->SetEmailAddress(emailAddress);
-	classRosterArray[arrayCounter]->SetAge(age);
-	classRosterArray[arrayCounter]->SetNumCourseDays(daysInCourse1, daysInCourse2, daysInCourse3);
-	classRosterArray[arrayCounter]->SetDegreeType();
-
-	arrayCounter++;
-
-
-
+	std::cout << "Student with ID: '" << studentID << "' successfully added to database." << endl;
 	
 	return;
 }
@@ -355,6 +394,7 @@ void Roster::PrintDaysInCourse(string studentID)
 //Working Correctly
 void Roster::PrintInvalidEmails()
 {
+	std::cout << endl;
 
 	for (int z = 0; z < arrayCounter; z++)
 	{
@@ -392,9 +432,10 @@ void Roster::PrintInvalidEmails()
 //Not Currently Working
 void Roster::PrintByDegreeProgram(Degree degreeProgram)
 {
+	std::cout << endl << "Students with specified degree below: " << endl;
 	for (int z = 0; z < arrayCounter; z++)
 	{
-		if (classRosterArray[z]->GetDegreeProgram() == degreeProgram)
+		if (classRosterArray[z] && classRosterArray[z]->GetDegreeProgram() == degreeProgram)
 		{
 			std::cout << endl << classRosterArray[z]->GetStudentID() << "\t";
 			std::cout << classRosterArray[z]->GetFirstName() << "\t";
@@ -477,7 +518,7 @@ int main() {
 
 	classRoster[0]->PrintAll();
 
-	//classRoster[0]->RemoveStudent("A6");
+	classRoster[0]->RemoveStudent("A6");
 
 	classRoster[0]->RemoveStudent("A3");
 	classRoster[0]->RemoveStudent("A3");
@@ -488,6 +529,13 @@ int main() {
 	classRoster[0]->PrintInvalidEmails();
 
 	classRoster[0]->PrintAll();
+
+	classRoster[0]->AddStudent("A3", "Jack", "Napoli", "The_lawyer99@yahoo.com", 19, 20, 40, 33, SOFTWARE);
+
+	std::cout << endl;
+	classRoster[0]->PrintAll();
+
+	classRoster[0]->PrintByDegreeProgram(SECURITY);
 	
 
 	return 0;
