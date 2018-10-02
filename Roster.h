@@ -31,12 +31,14 @@ public:
 	//Print all students by a specific degreeProgram
 	void PrintByDegreeProgram(Degree degreeProgram);
 
+	int GetArrayCounter();
+
 
 
 private:
 	Student* classRosterArray[100];
 	Roster* classRoster[50];
-	int arrayCounter = 0;
+	int arrayCounter;
 	int classRosterCounter = 1;
 
 	

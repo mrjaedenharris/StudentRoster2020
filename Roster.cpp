@@ -14,11 +14,14 @@ using namespace std;
 
 Roster::Roster()
 {
-	Student* classRosterArray[100];
+
+	arrayCounter = 0;
 
 }
 Roster::Roster(int random)
 {
+
+	arrayCounter = 5;
 
 	std::string studentData[] =
 	{
@@ -231,6 +234,7 @@ Roster::Roster(int random)
 
 Roster::~Roster()
 {
+
 }
 
 void Roster::AddStudent(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, int daysInCourse1, int daysInCourse2, int daysInCourse3, Degree degreeType)
@@ -274,20 +278,22 @@ void Roster::RemoveStudent(std::string studentID)
 	for (int z = 0; z < arrayCounter; z++)
 	{
 		
-		if (classRosterArray[z]->GetStudentID() == studentID)
+		if (classRosterArray[z] && classRosterArray[z]->GetStudentID() == studentID)
 		{
 			std::cout << endl << "Student ID: '" << studentID << "' deleted.";
 			delete classRosterArray[z];
-			arrayCounter--;
+			classRosterArray[z] = nullptr;
+			//arrayCounter--;
 			studentFound = true;
 		}
+		
 	}
-
-	
 	if (!studentFound)
 	{
 		std::cout << "Error: Student ID: '" << studentID << "' not found." << endl;
 	}
+
+	
 
 	std::cout << endl;
 }
@@ -299,17 +305,22 @@ void Roster::PrintAll()
 {
 	for (int z = 0; z < arrayCounter; z++)
 	{
-		std::cout << classRosterArray[z]->GetStudentID() << "\t";
-		std::cout << classRosterArray[z]->GetFirstName() << "\t";
-		std::cout << classRosterArray[z]->GetLastName() << "\t";
-		std::cout << classRosterArray[z]->GetEmailAddress() << "\t";
-		std::cout << classRosterArray[z]->GetAge() << "\t";
-		std::cout << classRosterArray[z]->GetNumCourseDays().numCourseDays[0] << "\t";
-		std::cout << classRosterArray[z]->GetNumCourseDays().numCourseDays[1] << "\t"; 
-		std::cout << classRosterArray[z]->GetNumCourseDays().numCourseDays[2] << "\t"; 
-		std::cout << classRosterArray[z]->GetEnumName(classRosterArray[z]->GetDegreeProgram());
+		if (classRosterArray[z])
+		{
 
-		std::cout << endl;
+
+			std::cout << classRosterArray[z]->GetStudentID() << "\t";
+			std::cout << classRosterArray[z]->GetFirstName() << "\t";
+			std::cout << classRosterArray[z]->GetLastName() << "\t";
+			std::cout << classRosterArray[z]->GetEmailAddress() << "\t";
+			std::cout << classRosterArray[z]->GetAge() << "\t";
+			std::cout << classRosterArray[z]->GetNumCourseDays().numCourseDays[0] << "\t";
+			std::cout << classRosterArray[z]->GetNumCourseDays().numCourseDays[1] << "\t";
+			std::cout << classRosterArray[z]->GetNumCourseDays().numCourseDays[2] << "\t";
+			std::cout << classRosterArray[z]->GetEnumName(classRosterArray[z]->GetDegreeProgram());
+			std::cout << endl;
+
+		}
 	}
 	return;
 }
@@ -323,10 +334,10 @@ void Roster::PrintDaysInCourse(string studentID)
 	{
 		int avgDaysInCourses;
 
-		if (classRosterArray[z]->GetStudentID() == studentID)
+		if (classRosterArray[z] && classRosterArray[z]->GetStudentID() == studentID)
 		{
 			avgDaysInCourses = (((classRosterArray[z]->GetNumCourseDays().numCourseDays[0]) + (classRosterArray[z]->GetNumCourseDays().numCourseDays[1]) + (classRosterArray[z]->GetNumCourseDays().numCourseDays[2])) / 3);
-			std::cout << endl << "Average days for student: '" << studentID << "' to complete three courses: " << avgDaysInCourses << endl;
+			std::cout << endl << "Average days for student: '" << studentID << "' to complete one course: " << avgDaysInCourses << endl;
 
 			studentFound = true;
 
@@ -347,23 +358,32 @@ void Roster::PrintInvalidEmails()
 
 	for (int z = 0; z < arrayCounter; z++)
 	{
-		std::string tempEmail;
-		bool invalidEmail = false;
 
-		tempEmail = classRosterArray[z]->GetEmailAddress();
-
-		char emailCstr[30];
-		strcpy_s(emailCstr, tempEmail.c_str());
-
-
-		if (strchr(emailCstr, ' ') != nullptr || strchr(emailCstr, '@') == nullptr || strchr(emailCstr, '.') == nullptr)
+		if (classRosterArray[z])
 		{
 
-			std::cout << classRosterArray[z]->GetEmailAddress() << ": is an invalid Email address it may contain a space, or not include an '@' or '.' symbol" << endl;
+
+			std::string tempEmail;
+			bool invalidEmail = false;
+
+			tempEmail = classRosterArray[z]->GetEmailAddress();
+
+			char emailCstr[30];
+			strcpy_s(emailCstr, tempEmail.c_str());
+
+
+			if (strchr(emailCstr, ' ') != nullptr || strchr(emailCstr, '@') == nullptr || strchr(emailCstr, '.') == nullptr)
+			{
+
+				std::cout << classRosterArray[z]->GetEmailAddress() << ": is an invalid Email address it may contain a space, or not include an '@' or '.' symbol" << endl;
+
+			}
 
 		}
 
 	}
+
+	std::cout << endl;
 
 	return;
 }
@@ -393,8 +413,14 @@ void Roster::PrintByDegreeProgram(Degree degreeProgram)
 	return;
 }
 
+int Roster::GetArrayCounter()
+{
+	return arrayCounter;
+}
+
 int main() {
 
+	
 	//-----Main Portion of Assignment-----
 
 	std::cout << "Course Title: Scripting and Programming Applications" << endl;
@@ -423,18 +449,18 @@ int main() {
 
 	//classRoster[0]->RemoveStudent("A4");
 	classRoster[0]->RemoveStudent("A6");
-	classRoster[0]->RemoveStudent("A7");
+	//classRoster[0]->RemoveStudent("A7");
 
 	classRoster[0]->PrintAll();
 
-	classRoster[0]->PrintByDegreeProgram(SECURITY);
-	classRoster[0]->PrintByDegreeProgram(NETWORK);
-	classRoster[0]->PrintByDegreeProgram(SOFTWARE);
+	//classRoster[0]->PrintByDegreeProgram(SECURITY);
+	//classRoster[0]->PrintByDegreeProgram(NETWORK);
+	//classRoster[0]->PrintByDegreeProgram(SOFTWARE);
 
 	*/
 
 
-
+	
 	//-------SECONDARY PORTION OF ASSIGNMENT-------
 
 	classRoster[0] = new Roster();
@@ -442,16 +468,30 @@ int main() {
 	classRoster[0]->AddStudent("A1", "John", "Smith", "John1989@gm ail.com", 20, 30, 35, 40, SECURITY);
 	classRoster[0]->AddStudent("A2", "Suzan", "Erickson", "Erickson_1990@gmailcom", 19, 50, 30, 40, NETWORK);
 	classRoster[0]->AddStudent("A3", "Jack", "Napoli", "The_lawyer99@yahoo.com", 19, 20, 40, 33, SOFTWARE);
+	classRoster[0]->AddStudent("A4", "Erin", "Black", "erin.black@comcast.net", 22, 50, 58, 40, SECURITY);
+	classRoster[0]->AddStudent("A5", "Jaeden", "Harris", "mr.jaeden.harris@gmail.com", 25, 45, 60, 75, SOFTWARE);
+
 	classRoster[0]->PrintInvalidEmails();
 
+	classRoster[0]->PrintDaysInCourse("A5");
+
+	classRoster[0]->PrintAll();
+
+	//classRoster[0]->RemoveStudent("A6");
+
+	classRoster[0]->RemoveStudent("A3");
+	classRoster[0]->RemoveStudent("A3");
 
 	classRoster[0]->PrintDaysInCourse("A2");
 	classRoster[0]->PrintDaysInCourse("A3");
 
+	classRoster[0]->PrintInvalidEmails();
+
 	classRoster[0]->PrintAll();
-	classRoster[0]->RemoveStudent("A2");
+	
 
 	return 0;
+
 }
 
 
