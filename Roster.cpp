@@ -234,7 +234,16 @@ Roster::Roster(int sizeOfDatabase)
 
 Roster::~Roster()
 {
-	std::cout << "Destructor called destroying the student roster." << endl;
+	std::cout << "Destructor called destroying the Student Roster and all students below:" << endl;
+
+	for (int z = 0; z < arrayCounter; z++)
+	{
+		if (classRosterArray[z])
+		{
+			std::cout << "Memory allocation for student ID: '" << classRosterArray[z]->GetStudentID() << "', successfully deleted" << endl;
+			delete classRosterArray[z];
+		}
+	}
 }
 
 void Roster::AddStudent(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, int daysInCourse1, int daysInCourse2, int daysInCourse3, Degree degreeType)
