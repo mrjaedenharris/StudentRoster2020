@@ -9,7 +9,7 @@ class Roster
 {
 public:
 	Roster();
-	Roster(int random);
+	Roster(int sizeOfDatabase);
 	
 	~Roster();
 

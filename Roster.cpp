@@ -18,10 +18,10 @@ Roster::Roster()
 	arrayCounter = 0;
 
 }
-Roster::Roster(int random)
+Roster::Roster(int sizeOfDatabase)
 {
 
-	arrayCounter = 5;
+	arrayCounter = sizeOfDatabase;
 
 	std::string studentData[] =
 	{
@@ -234,7 +234,7 @@ Roster::Roster(int random)
 
 Roster::~Roster()
 {
-
+	std::cout << "Destructor called destroying the student roster." << endl;
 }
 
 void Roster::AddStudent(std::string studentID, std::string firstName, std::string lastName, std::string emailAddress, int age, int daysInCourse1, int daysInCourse2, int daysInCourse3, Degree degreeType)
@@ -487,7 +487,7 @@ int main() {
 
 	Roster* classRoster[50];
 
-	/*
+	/*Testing for a pre-configured database
 	
 	classRoster[0] = new Roster(5);
 
@@ -533,6 +533,22 @@ int main() {
 	classRoster[0]->AddStudent("A4", "Erin", "Black", "erin.black@comcast.net", 22, 50, 58, 40, SECURITY);
 	classRoster[0]->AddStudent("A5", "Jaeden", "Harris", "mr.jaeden.harris@gmail.com", 25, 45, 60, 75, SOFTWARE);
 
+	std::cout << endl;
+	classRoster[0]->PrintAll();
+
+	std::cout << endl;
+	classRoster[0]->PrintAllDaysInCourses();
+
+	classRoster[0]->PrintByDegreeProgram(SOFTWARE);//Fix this and tweak to look prettier
+
+	classRoster[0]->RemoveStudent("A3");
+	classRoster[0]->RemoveStudent("A3");
+
+	classRoster[0]->~Roster();
+	classRoster[0] = nullptr;
+
+
+	/* ----UNIT TESTING----
 	classRoster[0]->PrintInvalidEmails();
 
 	classRoster[0]->PrintDaysInCourse("A5");
@@ -564,7 +580,7 @@ int main() {
 	classRoster[0]->PrintAll();
 
 	//classRoster[0]->PrintByDegreeProgram(SECURITY);
-	
+	*/
 	
 
 	return 0;
