@@ -257,7 +257,7 @@ void Roster::AddStudent(std::string studentID, std::string firstName, std::strin
 
 			if (degreeType = NETWORK)
 			{
-				classRosterArray[z] = new NetworkStudent;
+				classRosterArray[z] = new NetworkStudent();
 			}
 
 			else if (degreeType = SECURITY)
@@ -289,7 +289,7 @@ void Roster::AddStudent(std::string studentID, std::string firstName, std::strin
 
 		if (degreeType = NETWORK)
 		{
-			classRosterArray[arrayCounter] = new NetworkStudent;
+			classRosterArray[arrayCounter] = new NetworkStudent();
 		}
 
 		else if (degreeType = SECURITY)
@@ -367,6 +367,7 @@ void Roster::PrintAll()
 			std::cout << classRosterArray[z]->GetNumCourseDays().numCourseDays[2] << "\t";
 			std::cout << classRosterArray[z]->GetEnumName(classRosterArray[z]->GetDegreeProgram());
 			std::cout << endl;
+			
 
 		}
 	}
@@ -548,7 +549,7 @@ int main() {
 	std::cout << endl;
 	classRoster[0]->PrintAllDaysInCourses();
 
-	classRoster[0]->PrintByDegreeProgram(SOFTWARE);//Fix this and tweak to look prettier
+	classRoster[0]->PrintByDegreeProgram(SECURITY);//Fix this and tweak to look prettier
 
 	classRoster[0]->RemoveStudent("A3");
 	classRoster[0]->RemoveStudent("A3");

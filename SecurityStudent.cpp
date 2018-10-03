@@ -40,6 +40,8 @@ void SecurityStudent::SetDegreeType()
     degreeTypes = SECURITY;
 }
 
+
+
 Degree SecurityStudent::GetDegreeProgram()
 {
 	return degreeTypes;

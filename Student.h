@@ -35,7 +35,7 @@ public:
 
 protected:
 
-	Degree degreeTypes;
+	
 
 private:
 
